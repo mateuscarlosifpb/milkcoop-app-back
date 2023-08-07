@@ -39,14 +39,14 @@ public class CooperativeController {
 	@PostMapping
 	public CooperativeVO create(@RequestBody CooperativeVO cooperative) throws ParseException {
 		var cooperativeVO = services.create(cooperative);
-		cooperativeVO.add(linkTo(methodOn(CooperativeController.class).findById(cooperativeVO.getKey())).withSelfRel());
+		cooperativeVO.add(linkTo(methodOn(CooperativeController.class).findById(cooperativeVO.getId())).withSelfRel());
 		return cooperativeVO;
 	}
 
 	@GetMapping(value = "/{id}")
 	public CooperativeVO findById(@PathVariable(value = "id") Long id) {
 		CooperativeVO cooperativeVO = services.findById(id);
-		cooperativeVO.add(linkTo(methodOn(CooperativeController.class).findById(cooperativeVO.getKey())).withSelfRel());
+		cooperativeVO.add(linkTo(methodOn(CooperativeController.class).findById(cooperativeVO.getId())).withSelfRel());
 		return cooperativeVO;
 	}
 
@@ -62,14 +62,14 @@ public class CooperativeController {
 		Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "name"));
 		Page<CooperativeVO> cooperativeVO = services.find(pageable);
 		cooperativeVO.stream()
-				.forEach(s -> s.add(linkTo(methodOn(CooperativeController.class).findById(s.getKey())).withSelfRel()));
+				.forEach(s -> s.add(linkTo(methodOn(CooperativeController.class).findById(s.getId())).withSelfRel()));
 		return new ResponseEntity<>(assembler.toModel(cooperativeVO), HttpStatus.OK);
 	}
 
 	@PutMapping(value = "/{id}")
 	public CooperativeVO update(@RequestBody CooperativeVO cooperative) {
 		var cooperativeVO = services.update(cooperative);
-		cooperativeVO.add(linkTo(methodOn(CooperativeController.class).findById(cooperative.getKey())).withSelfRel());
+		cooperativeVO.add(linkTo(methodOn(CooperativeController.class).findById(cooperative.getId())).withSelfRel());
 		return cooperativeVO;
 	}
 

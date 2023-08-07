@@ -23,11 +23,10 @@ public class CooperativeVO extends RepresentationModel<CooperativeVO> implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@JsonProperty("id")
-	private Long key;
+	private Long id;
 	private String name;
 	private String telephone;
-	private AddressVO address;
+	private AddressVO addressVO;
 	private List<InventoryVO> inventory = new ArrayList<>();
 	private List<ProducerVO> producers = new ArrayList<>();
 	private List<UserVO> Employees = new ArrayList<>();

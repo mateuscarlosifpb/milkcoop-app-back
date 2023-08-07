@@ -1,23 +1,13 @@
 package com.milkcoop.data.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "producers")
@@ -25,29 +15,29 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
+@SequenceGenerator(name = "id_producer", sequenceName = "id_producer", allocationSize = 1)
 public class Producer implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "id_producer")
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "cpf", unique = true)
+    private String cpf;
+    @Column(name = "full_name")
+    private String fullName;
+    @Embedded
+    private Address address;
+    @Column(name = "telephone")
+    private String telephone;
+    @OneToMany(mappedBy = "producer", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProducerDelivery> producerDeliveries;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
-
-	@Column(name = "user_name", unique = true)
-	private String userName;
-
-	@Column(name = "full_name")
-	private String fullName;
-
-	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "producer_id")
-	private Address address;
-
-	@Column(name = "telephone")
-	private String telephone;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_cooperativa")
+    private Cooperative cooperative;
 
 }

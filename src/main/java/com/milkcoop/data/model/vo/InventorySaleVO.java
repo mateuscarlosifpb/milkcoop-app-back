@@ -1,6 +1,6 @@
 package com.milkcoop.data.model.vo;
 
-import com.milkcoop.data.model.enums.ProductName;
+import com.milkcoop.data.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,17 +13,12 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class ProductVO extends RepresentationModel<ProductVO> implements Serializable {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+@AllArgsConstructor
+public class InventorySaleVO extends RepresentationModel<InventorySaleVO> implements Serializable {
     private Long id;
-    private ProductName productName;
     private BigDecimal price;
     private BigDecimal quantity;
+    private ProductVO product;
     private LocalDate dataRegister;
-
 }

@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class Permission implements GrantedAuthority, Serializable {
+public class Permission implements  Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -31,10 +30,6 @@ public class Permission implements GrantedAuthority, Serializable {
 	private Long id;
 	@Column(name = "description")
 	private String description;
-	@Override
-	public String getAuthority() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

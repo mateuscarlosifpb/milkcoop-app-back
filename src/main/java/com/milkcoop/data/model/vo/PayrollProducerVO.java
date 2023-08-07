@@ -1,6 +1,5 @@
 package com.milkcoop.data.model.vo;
 
-import com.milkcoop.data.model.enums.ProductName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,20 +9,18 @@ import org.springframework.hateoas.RepresentationModel;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class ProductVO extends RepresentationModel<ProductVO> implements Serializable {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-    private Long id;
-    private ProductName productName;
-    private BigDecimal price;
-    private BigDecimal quantity;
-    private LocalDate dataRegister;
+public class PayrollProducerVO extends RepresentationModel<PayrollProducerVO> implements Serializable {
 
+    private Long id;
+    private ProducerVO producer;
+    private LocalDate dataRegister;
+    private BigDecimal amount;
+    private BigDecimal quantity;
+    private List<PayrollProducerDeliveryVO> payrollProducerDeliveries;
 }

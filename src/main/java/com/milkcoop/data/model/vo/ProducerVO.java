@@ -21,9 +21,8 @@ public class ProducerVO extends RepresentationModel<ProductVO> implements Serial
 	*/
 	private static final long serialVersionUID = 1L;
 
-	@JsonProperty("id")
-	private Long key;
-	private String userName;
+	private Long id;
+	private String cpf;
 	private String fullName;
 	private AddressVO address;
 	private String telephone;

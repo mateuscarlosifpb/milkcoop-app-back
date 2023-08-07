@@ -1,31 +1,16 @@
 package com.milkcoop.data.model;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.milkcoop.data.model.enums.PaymentStatus;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "producer_deliveries")
@@ -33,6 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
+@SequenceGenerator(name = "id_producer_delivery", sequenceName = "id_producer_delivery", allocationSize = 1)
+
 public class ProducerDelivery implements Serializable {
 	/**
 	* 
@@ -40,26 +27,24 @@ public class ProducerDelivery implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id_producer_delivery")
 	@Column(name = "id")
 	private Long id;
 
-	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "producer_id")
+	@JoinColumn(name = "id_producer")
 	private Producer producer;
 
-	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_id")
+	@JoinColumn(name = "id_product")
 	private Product product;
 
 	@Column(name = "quantity")
 	private BigDecimal quantity;
 
-	@Column(name = "data_cadastro")
+	@Column(name = "data_register")
 	@Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
-	private LocalDate dataCadastro;
+	private LocalDate dataRegister;
 
 	@Column(name = "statusPagamento")
 	@Enumerated(value = EnumType.STRING)

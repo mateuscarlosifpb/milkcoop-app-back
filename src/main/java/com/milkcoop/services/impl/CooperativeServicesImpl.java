@@ -32,10 +32,10 @@ public class CooperativeServicesImpl implements CooperativeServices {
 
 	@Override
 	public CooperativeVO update(CooperativeVO cooperativeVO) {
-		var entity = repository.findById(cooperativeVO.getKey())
+		var entity = repository.findById(cooperativeVO.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("Not records found for thins ID"));
 		entity.setName(cooperativeVO.getName());
-		entity.setAddress(modelMapper.map(cooperativeVO.getAddress(), Address.class));
+		entity.setAddress(modelMapper.map(cooperativeVO.getAddressVO(), Address.class));
 		entity.setTelephone(cooperativeVO.getTelephone());
 		return toConvert(repository.save(entity));
 
